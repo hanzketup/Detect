@@ -1,4 +1,5 @@
 import express from 'express'
+import compression from 'compression'
 import cors from 'cors'
 import path from 'path'
 
@@ -9,6 +10,7 @@ import normUrl from './helpers/normUrl'
 
 var app = express()
 app.use(express.json())
+app.use(compression())
 app.use(cors())
 
 app.post('/audit', async (req, res) => {
