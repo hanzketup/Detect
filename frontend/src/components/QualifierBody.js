@@ -70,7 +70,16 @@ const Info = styled.div`
 `
 
 const Meta = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   color: #686de0 !important;
+  div{
+    padding-left: 0;
+    padding-right: 0;
+  }
 `
 
 export default props =>
