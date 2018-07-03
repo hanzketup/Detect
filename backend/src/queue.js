@@ -1,5 +1,4 @@
 import PQueue from 'p-queue'
-
 import process from './process'
 
 const queue = new PQueue({concurrency: 1});

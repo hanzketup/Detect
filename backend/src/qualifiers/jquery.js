@@ -1,7 +1,8 @@
 export default async (utils, data) => {
 
   const jqueryfile = () => {
-    return Boolean(data.resources.filter(i => i.name.toLowerCase() === ('jquery.js' || 'jquery.min.js')).length)
+    let accepted_names = ['jquery.js', 'jquery.min.js']
+    return Boolean(data.resources.filter(i => accepted_names.includes(i.name.toLowerCase())).length)
   }
 
   const onwindow = async () => {
@@ -12,12 +13,12 @@ export default async (utils, data) => {
     name: 'jQuery',
     testpoints: [
       {
-        name: 'hasfile',
+        name: 'hasFile',
         test: jqueryfile(),
         weight: 5
       },
       {
-        name: 'tactonwindow',
+        name: 'onWindow',
         test: await onwindow(),
         weight: 6
       },

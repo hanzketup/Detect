@@ -12,6 +12,7 @@ var app = express()
 app.use(express.json())
 app.use(compression())
 app.use(cors())
+app.use(express.static(path.join(__dirname, '../../frontend/build')))
 
 app.post('/audit', async (req, res) => {
   let ver = await verifyRecaptcha(req.body.token)
@@ -39,13 +40,8 @@ app.post('/audit', async (req, res) => {
   else{res.send({status: 'failed', message: 'ReCaptcha verification failed'})}
 })
 
-//if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../../frontend/build')))
-
-  app.get('*', async (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'))
-  })
-//}
-
+app.get('*', async (req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'))
+})
 
 app.listen(2000)
