@@ -17,7 +17,7 @@ const findByUrl = url => {
   return new Promise((resolve, reject) => {
     db.collection('recorded_audits').find({request_url:url}).toArray((err, res) => {
       if (err) reject(err)
-      resolve(res[0])
+      resolve(res.sort((x, y) => x.timestamp - y.timestamp)[0])
     })
   })
 }
