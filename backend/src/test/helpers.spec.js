@@ -58,8 +58,8 @@ describe('helpers', function() {
 
   describe('verifyRecaptcha', function() {
     it('sends recaptcha validation request', async function() {
-      let req = await verifyRecaptcha('')
-      assert.equal(req.success, false)
+      let req = await verifyRecaptcha('', true)
+      assert.equal(req.success, true)
     })
   })
 
