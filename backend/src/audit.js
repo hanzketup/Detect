@@ -9,8 +9,11 @@ export default (() => {
   let browser,
   page, url
 
-  const begin = async (device='desktop') => {
-    browser = await puppeteer.launch({headless:true})
+  const begin = async (device='desktop', testEnv=false) => {
+    browser = await puppeteer.launch({
+      headless: true,
+      args: testEnv ? ['--no-sandbox'] : []
+    })
     page = await browser.newPage()
 
     // Setup Puppeteer
