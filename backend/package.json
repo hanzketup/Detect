@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "mocha --require babel-core/register ./src/test/*.spec.js",
     "test_qualifier": "$(npm bin)/babel-node src/dev/daemon.js",
-    "start": "nodemon src/index.js",
+    "start": "NODE_ENV=development nodemon src/index.js --exec babel-node",
     "build": "$(npm bin)/babel src -d dist",
     "serve": "node dist/index.js"
   },
@@ -33,6 +34,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
+    "express-http-proxy": "^1.2.0",
     "nodemon": "^1.17.5",
     "require-reload": "^0.2.2",
     "yargs": "^12.0.1"
