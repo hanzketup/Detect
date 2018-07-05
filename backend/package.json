@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "$(npm bin)/mocha --require babel-core/register ./src/test/*.spec.js",
+    "test": "$(npm bin)/mocha --require babel-core/register --exit ./src/test/*.spec.js",
     "test_qualifier": "$(npm bin)/babel-node src/dev/daemon.js",
     "start": "NODE_ENV=development nodemon src/index.js --exec babel-node",
     "build": "$(npm bin)/babel src -d dist",
