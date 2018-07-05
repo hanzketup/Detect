@@ -8,8 +8,12 @@ jobs:
     steps:
       - checkout:
           path: ~/project
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run: npm install
       - run: npm run build
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
 
   test_backend:
     working_directory: ~/project/backend
@@ -18,6 +22,8 @@ jobs:
     steps:
       - checkout:
           path: ~/project
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run: npm run test
 
   build_frontend:
@@ -34,5 +40,7 @@ workflows:
   build_and_test:
     jobs:
       - build_backend
-      - test_backend
+      - test_backend:
+          requires:
+            - build
       - build_frontend
