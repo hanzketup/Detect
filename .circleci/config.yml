@@ -21,6 +21,7 @@ jobs:
     working_directory: ~/project/backend
     docker:
       - image: circleci/node:7.10
+      - image: mongo:latest
     steps:
       - checkout:
           path: ~/project
