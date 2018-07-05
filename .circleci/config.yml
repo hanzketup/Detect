@@ -42,5 +42,5 @@ workflows:
       - build_backend
       - test_backend:
           requires:
-            - build
+            - build_backend
       - build_frontend
