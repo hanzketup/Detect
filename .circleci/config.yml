@@ -14,7 +14,7 @@ jobs:
       - run: npm run build
       - save_cache:
         - ~/project/backend/node_modules
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+        key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
 
   test_backend:
     working_directory: ~/project/backend
