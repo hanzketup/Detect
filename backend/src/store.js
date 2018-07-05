@@ -9,17 +9,30 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
 const insert = data => {
   db.collection('recorded_audits').insertOne(data, (err, res) => {
     if (err) throw err
-    console.log(`Result inserted for: ${data.request_url}`)
   })
 }
 
 const findByUrl = url => {
   return new Promise((resolve, reject) => {
-    db.collection('recorded_audits').find({request_url:url}).toArray((err, res) => {
+    db.collection('recorded_audits')
+    .find({request_url:url})
+    .sort({"audit_timestamp": -1})
+    .limit(1)
+    .toArray((err, res) => {
       if (err) reject(err)
-      resolve(res.sort((x, y) => x.timestamp - y.timestamp)[0])
+      resolve(res)
     })
   })
 }
 
-export {insert, findByUrl}
+const deleteByUrl = url => {
+  return new Promise((resolve, reject) => {
+    db.collection('recorded_audits')
+    .deleteOne({request_url: url}, (err, obj) => {
+      if (err) reject(err)
+      resolve('success')
+    })
+  })
+}
+
+export {insert, findByUrl, deleteByUrl}

@@ -3,7 +3,7 @@ export default async (utils, data) => {
 
   const request = () => {
     let made_request = data.resources.filter(i => utils.splitUrl(i.url).domain === 'fonts.googleapis.com')
-    if(made_request){
+    if(made_request.length){
       let font_string = made_request[0].url.split('=')[1]
       let fonts = font_string.split('|')
       found_fonts = fonts.reduce((res, f) => {
