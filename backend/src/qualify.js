@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import utils from './utils'
+import testpointsToConfidence from './helpers/testpointsToConfidence'
 const reload = require('require-reload')(require)
 
 // Collect qualifiers
@@ -14,28 +15,16 @@ export default async (data, qualifier='all') => {
 
   if(qualifier === 'all') {
     let results = await Promise.all([...indexedQualifiers.map(i => i(utils, data))])
-    results.map(result => result['confidence'] = testpointsToConfidence(result.testpoints).toFixed(2))
+    results.map(result => result['confidence'] = testpointsToConfidence(result.testpoints))
     return results
   } else {
     let qual = reload('./qualifiers/' + qualifier).default
     let result = await qual(utils, data)
     return {
       ...result,
-      confidence: testpointsToConfidence(result.testpoints).toFixed(2)
+      confidence: testpointsToConfidence(result.testpoints)
     }
   }
 
 
-}
-
-const testpointsToConfidence = (testpoints) => {
-  let totalWeight = testpoints.reduce((val, point) => val + point.weight, 0)
-  let share = 1000 / totalWeight
-  return testpoints.reduce((val, point) => {
-    let calcedWeight = point.weight / Math.pow(10, 1)
-    let artificalDoubt = Math.random() // Because ints are too Chad
-    return point.test
-    ? val + ((share * calcedWeight) - artificalDoubt)
-    : val
-  }, 0)
 }
