@@ -3,10 +3,20 @@ jobs:
   build_backend:
     docker:
       - image: circleci/node:7.10
+      - image: mongo:latest
     steps:
       - checkout
       - run: cd backend
-      - run: yarn install
+      - run: npm install
+      - run: npm run build
+
+  test_backend:
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - run: cd backend
+      - run: npm run test
 
   build_frontend:
     docker:
@@ -14,11 +24,12 @@ jobs:
     steps:
       - checkout
       - run: cd frontend
-      - run: yarn install
+      - run: npm install
 
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build_backend
+      - test_backend
       - build_frontend
