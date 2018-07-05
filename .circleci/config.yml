@@ -13,7 +13,8 @@ jobs:
       - run: npm install
       - run: npm run build
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+        - ~/project/backend/node_modules
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
 
   test_backend:
     working_directory: ~/project/backend
