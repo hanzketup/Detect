@@ -28,12 +28,13 @@ export default (() => {
   }
 
   const getComments = (body) => {
-    let pattern = /(\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*)$/gm
-    let matches = body.match(pattern).map(x => x.replace('\n', ''))
+    let pattern = /(\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*)/gm
+    let matches = body.match(pattern).map(x => x.replace('\n', '').replace(/^ /, ''))
     return matches
   }
 
   return({
+    hasAtleast: hasAtleast,
     splitUrl: splitUrl,
     getComments: getComments
   })

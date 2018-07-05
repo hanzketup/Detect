@@ -2,7 +2,7 @@ import express from 'express'
 import compression from 'compression'
 import cors from 'cors'
 import path from 'path'
-
+import proxy from 'express-http-proxy'
 import queue from './queue'
 import {findByUrl} from './store'
 import verifyRecaptcha from './helpers/verifyRecaptcha'
@@ -12,7 +12,6 @@ var app = express()
 app.use(express.json())
 app.use(compression())
 app.use(cors())
-app.use(express.static(path.join(__dirname, '../../frontend/build')))
 
 app.post('/audit', async (req, res) => {
   let ver = await verifyRecaptcha(req.body.token)
@@ -40,8 +39,17 @@ app.post('/audit', async (req, res) => {
   else{res.send({status: 'failed', message: 'ReCaptcha verification failed'})}
 })
 
-app.get('*', async (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'))
-})
+console.log(process.env.NODE_ENV)
+if(process.env.NODE_ENV === "development"){
+  app.use(express.static(path.join(__dirname, '../../frontend/build')))
+  app.use('*', proxy('localhost:3000'))
+}
+
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(__dirname, '../../frontend/build')))
+  app.get('/', async (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'))
+  })
+}
 
 app.listen(2000)

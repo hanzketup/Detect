@@ -1,6 +1,8 @@
 import now from 'performance-now'
 import sizeof from 'object-sizeof'
 
+import fs from 'fs'
+
 import {insert, findByUrl} from './store'
 import normUrl from './helpers/normUrl'
 import audit from './audit'
@@ -20,7 +22,10 @@ export default async (req, store=true) => {
 
   let qualifyResult
   try{qualifyResult = await qualify(auditResult.data)}
-  catch(e){return {status: 'failed', message: 'Something went wrong during qualification'}}
+  catch(e){
+    console.log(e)
+    return {status: 'failed', message: 'Something went wrong during qualification'}
+  }
 
   await audit.end()
   let end = now()
