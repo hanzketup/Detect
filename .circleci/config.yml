@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build_backend:
     docker:
       - image: circleci/node:7.10
     steps:
@@ -8,17 +8,17 @@ jobs:
       - run: cd backend
       - run: yarn install
 
-  build2:
+  build_frontend:
     docker:
       - image: circleci/node:7.10
     steps:
       - checkout
       - run: cd frontend
       - run: yarn install
-      
+
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build1
-      - build1
+      - build_backend
+      - build_frontend
