@@ -1,30 +1,33 @@
 version: 2
 jobs:
   build_backend:
-    working_directory: ~/backend
+    working_directory: ~/project/backend
     docker:
       - image: circleci/node:7.10
       - image: mongo:latest
     steps:
       - checkout
+          path: ~/project
       - run: cd backend
       - run: npm install
       - run: npm run build
 
   test_backend:
-    working_directory: ~/backend
+    working_directory: ~/project/backend
     docker:
       - image: circleci/node:7.10
     steps:
       - checkout
+          path: ~/project
       - run: npm run test
 
   build_frontend:
-    working_directory: ~/frontend
+    working_directory: ~/project/frontend
     docker:
       - image: circleci/node:7.10
     steps:
       - checkout
+          path: ~/project
       - run: npm install
 
 workflows:
