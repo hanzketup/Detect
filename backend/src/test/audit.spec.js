@@ -14,7 +14,7 @@ describe('Audit', function() {
     assert.equal(audit_result.status, 'finished')
   })
 
-  it('ends without crashing', function() {
+  it('ends without crashing', async function() {
     this.timeout(5000)
     await audit.end()
   })
