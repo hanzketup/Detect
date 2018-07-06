@@ -3,9 +3,8 @@ jobs:
   build_backend:
     working_directory: ~/project/backend
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:latest-browsers
       - image: mongo:latest
-      - image: hanzketup/puppeteer-chrome-linux:latest
     steps:
       - checkout:
           path: ~/project
@@ -21,9 +20,8 @@ jobs:
   test_backend:
     working_directory: ~/project/backend
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:latest-browsers
       - image: mongo:latest
-      - image: hanzketup/puppeteer-chrome-linux:latest
     steps:
       - checkout:
           path: ~/project
