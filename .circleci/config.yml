@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: circleci/node:7.10
       - image: mongo:latest
-      - image: hanzketup/puppeteer-chrome-linux:latest
+      - image: alekzonder/puppeteer
     steps:
       - checkout:
           path: ~/project
@@ -23,7 +23,7 @@ jobs:
     docker:
       - image: circleci/node:7.10
       - image: mongo:latest
-      - image: hanzketup/puppeteer-chrome-linux:latest
+      - image: alekzonder/puppeteer
     steps:
       - checkout:
           path: ~/project
