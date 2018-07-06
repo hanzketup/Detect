@@ -1,23 +1,22 @@
 import assert from 'assert'
 import audit from '../audit'
 
-describe('Audit', function(done) {
+describe('Audit', function() {
 
   it('starts without crashing', async function() {
+    this.timeout(5000)
     await audit.begin()
-    done()
   })
 
-  it('runs successfully', async function(done) {
+  it('runs successfully', async function() {
     this.timeout(5000)
     let audit_result = await audit.runAudit('https://example.com/', true)
     assert.equal(audit_result.status, 'finished')
-    done()
   })
 
-  it('ends without crashing', function(done) {
-    audit.end()
-    done()
+  it('ends without crashing', function() {
+    this.timeout(5000)
+    await audit.end()
   })
 
 })
