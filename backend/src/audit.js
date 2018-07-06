@@ -12,7 +12,7 @@ export default (() => {
   const begin = async (device='desktop', testEnv=false) => {
     browser = await puppeteer.launch({
       headless: true,
-      args: testEnv ? ['--no-sandbox'] : []
+      args: testEnv ? ['--no-sandbox', '--disable-setuid-sandbox'] : []
     })
     page = await browser.newPage()
 
